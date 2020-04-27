@@ -1,23 +1,31 @@
 package com.testrn;
+
 import android.Manifest;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.view.DrawStatusChangedEvent;
+import com.esri.arcgisruntime.mapping.view.DrawStatusChangedListener;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
+import java.util.Map;
+
 public class RNMapView extends SimpleViewManager<MapView> {
+    private String TAG = "RNAGis";
     private MapView mMapView = null;
     private ArcGISMap mMap = null;
     private String mMapId = null;
-    private static String[] permissions = new String[]{
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-    };
 
     @NonNull
     @Override
@@ -25,26 +33,14 @@ public class RNMapView extends SimpleViewManager<MapView> {
         return "MapView";
     }
 
-//    @ReactProp(name = "mapId")
-//    public void setMapId(MapView mapView, String mapId) {
-//    }
-
     @NonNull
     @Override
     protected MapView createViewInstance(@NonNull ThemedReactContext reactContext) {
         Log.i("RNAGIS", String.format("RNMapView.createViewInstance"));
-        mMapView = new MapView(reactContext);
-        mMap = new ArcGISMap(Basemap.Type.TOPOGRAPHIC, 34.056295, -117.195800, 16);
+        mMapView = new MapView(reactContext.getBaseContext());
+        ArcGISMap mMap = new ArcGISMap(Basemap.Type.TOPOGRAPHIC, 34.056295, -117.195800, 16);
         mMapView.setMap(mMap);
-//        Button button = new Button(reactContext);
-//        button.setText("测试按钮");
         return mMapView;
-    }
-
-    @Override
-    public void onDropViewInstance(@NonNull MapView view) {
-        Log.i("RNAGIS", "RNMapView.onDropViewInstance");
-        super.onDropViewInstance(view);
     }
 
 }

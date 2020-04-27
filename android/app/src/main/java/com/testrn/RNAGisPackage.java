@@ -16,6 +16,7 @@ public class RNAGisPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
+        modules.add(new RNUtil(reactContext));
         return modules;
     }
 
