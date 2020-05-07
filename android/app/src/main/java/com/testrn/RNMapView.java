@@ -23,8 +23,8 @@ import java.util.Map;
 
 public class RNMapView extends SimpleViewManager<MapView> {
     private String TAG = "RNAGis";
-    private MapView mMapView = null;
-    private ArcGISMap mMap = null;
+    public static MapView mMapView = null;
+    public static ArcGISMap mMap = null;
     private String mMapId = null;
 
     @NonNull
@@ -37,10 +37,10 @@ public class RNMapView extends SimpleViewManager<MapView> {
     @Override
     protected MapView createViewInstance(@NonNull ThemedReactContext reactContext) {
         Log.i("RNAGIS", String.format("RNMapView.createViewInstance"));
-        mMapView = new MapView(reactContext.getBaseContext());
+        MapView mapView = new MapView(reactContext.getBaseContext());
         ArcGISMap mMap = new ArcGISMap(Basemap.Type.TOPOGRAPHIC, 34.056295, -117.195800, 16);
-        mMapView.setMap(mMap);
-        return mMapView;
+        mapView.setMap(mMap);
+        return mapView;
     }
 
 }

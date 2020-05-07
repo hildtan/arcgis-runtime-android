@@ -1,5 +1,6 @@
 package com.testrn;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,9 +40,14 @@ public class RNUtil extends ReactContextBaseJavaModule {
     public void refreshDraw(Promise promise) {
         Log.i("RNAGIS", "refreshDraw");
         try {
+//            RNMapView.mMapView.getDisplay().s
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
+                    Activity activity = mReactContext.getCurrentActivity();
+                    if(activity!=null) {
+                        activity.recreate();
+                    }
                     promise.resolve("200");
                 }
             });
